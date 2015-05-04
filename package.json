@@ -1,0 +1,30 @@
+{
+  "name": "a2switch",
+  "version": "0.1.0",
+  "preferGlobal": "true",
+  "description": "CLI tool for quickly switching between Apache configurations",
+  "main": "a2switch.js",
+  "bin": {
+    "a2switch": "a2switch.js"
+  },
+  "scripts": {
+    "start": "node a2switch.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fbradley8/a2switch"
+  },
+  "author": "Forrest Bradley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fbradley8/a2switch/issues"
+  },
+  "homepage": "https://github.com/fbradley8/a2switch",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "inquirer": "^0.8.2",
+    "is-root": "^1.0.0"
+  }
+}
