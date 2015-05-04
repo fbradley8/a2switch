@@ -1,6 +1,6 @@
 {
   "name": "a2switch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "preferGlobal": "true",
   "description": "CLI tool for quickly switching between Apache configurations",
   "main": "a2switch.js",
