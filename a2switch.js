@@ -1,4 +1,5 @@
-var isRoot = require('is-root');
+#!/usr/bin/env node
+var isRoot = require("is-root");
 var inquirer = require("inquirer");
 var fs = require("fs");
 
