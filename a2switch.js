@@ -13,7 +13,7 @@ var availableConfigs = [];
 function getEnabledConfigs() {
 	fs.readdir(dirEnabledConfigs, function(err, files) {
 		if (err) handleErr(err);
-		if (files.length) {
+		if (files) {
 			enabledConfigs = files;
 			getAvailableConfigs();
 		}
@@ -26,6 +26,8 @@ function getAvailableConfigs() {
 		if (files.length) {
 			availableConfigs = files;
 			showMainMenu();
+		} else {
+			console.log('No available Apache configs.');
 		}
 	});
 }
