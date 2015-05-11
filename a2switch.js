@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-var isRoot = require("is-root");
-var inquirer = require("inquirer");
-var fs = require("fs");
+var fs = require('fs');
+var sys = require('sys');
+var isRoot = require('is-root');
+var inquirer = require('inquirer');
+var exec = require('child_process').exec;
 
-var dirApache = "/etc/apache2";
-var dirEnabledConfigs = "/etc/apache2/sites-enabled";
-var dirAvailableConfigs = "/etc/apache2/sites-available";
+var dirApache = '/etc/apache2';
+var dirEnabledConfigs = '/etc/apache2/sites-enabled';
+var dirAvailableConfigs = '/etc/apache2/sites-available';
 
 var enabledConfigs = [];
 var availableConfigs = [];
@@ -34,9 +36,9 @@ function getAvailableConfigs() {
 
 function showMainMenu() {
 	var question = {
-		type: "checkbox",
-		name: "sites",
-		message: "Which sites do you want enabled?",
+		type: 'checkbox',
+		name: 'sites',
+		message: 'Which sites do you want enabled?',
 		default: enabledConfigs,
 		choices: availableConfigs
 	};
@@ -50,25 +52,28 @@ function prompt(question) {
 }
 
 function updateLinks(newConfig) {
-	// loop through all available sites
 	availableConfigs.forEach(function(site) {
-		// do we want site enabled?
 		if (newConfig.indexOf(site) > -1) {
-			// yes, is it already enabled?
 			if (enabledConfigs.indexOf(site) == -1) {
-				// no, enabled it
-				fs.symlinkSync(dirAvailableConfigs + "/" + site, dirEnabledConfigs + "/" + site);
-				console.log("linked site: " + site);
+				fs.symlinkSync(dirAvailableConfigs + '/' + site, dirEnabledConfigs + '/' + site);
+				console.log('linked site: ' + site);
 			}
 		} else {
-			// no, is it enabled?
 			if (enabledConfigs.indexOf(site) > -1) {
-				// yes, disable it
-				fs.unlinkSync(dirEnabledConfigs + "/" + site);
-				console.log("unlinked site: " + site);
+				fs.unlinkSync(dirEnabledConfigs + '/' + site);
+				console.log('unlinked site: ' + site);
 			}
 		}
 	});
+	reloadApache();
+}
+
+function reloadApache() {
+	exec('service apache2 reload', puts);
+}
+
+function puts(error, stdout, stderr) {
+	sys.puts(stdout);
 }
 
 function handleErr(err) {
