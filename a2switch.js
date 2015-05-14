@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 var fs = require('fs');
-var sys = require('sys');
 var isRoot = require('is-root');
 var inquirer = require('inquirer');
 var exec = require('child_process').exec;
@@ -73,7 +72,7 @@ function reloadApache() {
 }
 
 function puts(error, stdout, stderr) {
-	sys.puts(stdout);
+	console.log(stdout);
 }
 
 function handleErr(err) {
